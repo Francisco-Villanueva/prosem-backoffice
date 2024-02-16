@@ -1,6 +1,7 @@
 "use client";
 import MemberCard from "@/app/components/MemberCard";
 import MemberDetails from "@/app/components/MemberDetails";
+import { SpinnerLoading } from "@/app/icons";
 import { UserServices } from "@/services";
 import { teamStore } from "@/store";
 import Image from "next/image";
@@ -27,7 +28,15 @@ export default function Page() {
         </section>
       ) : (
         <div className=" grid place-items-center border">
-          <span className="text-light-dark font-bold ">Loading ...</span>
+          <span className="text-light-dark font-bold ">
+            {team.length === 0 ? (
+              <div className="text-light-dark font-normal">No members</div>
+            ) : (
+              <div className="flex gap-2">
+                <SpinnerLoading className="" /> Loadng...
+              </div>
+            )}
+          </span>
         </div>
       )}
       <section className="flex-grow border bg-light-white rounded-md">

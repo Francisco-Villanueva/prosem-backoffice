@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import Input from "../common/Input";
 import useInput from "@/hooks/useInput";
 import Button from "../common/Button";
@@ -8,18 +8,20 @@ import { message } from "antd";
 import { useRouter } from "next/navigation";
 import { companyStore, userStore } from "@/store";
 import { IUser } from "@/types/user.types";
+import { SpinnerLoading } from "../icons";
 
 export function Login() {
   const { setUserLogged } = userStore();
   const { setCompany } = companyStore();
   const userName = useInput({ validatorType: "no required" });
   const password = useInput({ validatorType: "password" });
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
-    AuthServices.login({ user: userName.value, password: password.value }).then(
-      (res: { user: IUser }) => {
+    setLoading(true);
+    AuthServices.login({ user: userName.value, password: password.value })
+      .then((res: { user: IUser }) => {
         setUserLogged(res.user);
         localStorage.setItem("companyId", res.user.companyId);
         localStorage.setItem("userLoggedId", res.user.id);
@@ -28,8 +30,11 @@ export function Login() {
           message.success("Login successfully");
           router.push("/home/dashboard");
         });
-      }
-    );
+      })
+      .catch(() => message.error("Please check your credentials"))
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <form
@@ -39,7 +44,7 @@ export function Login() {
       <Input {...userName} placeholder="Username" />
       <Input {...password} placeholder="Password" />
       <Button className="w-[80%]" type="submit" variant="dark">
-        Login
+        {loading ? <SpinnerLoading /> : "Log in"}
       </Button>
       <span className="text-black text-sm"> forgot password</span>
     </form>

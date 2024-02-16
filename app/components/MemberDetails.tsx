@@ -47,7 +47,12 @@ export default function MemberDetails({ member }: MemerDetailsProps) {
             "Saturday",
             "Sunday",
           ].map((day) => (
-            <div className="border text-center p-2">{day}</div>
+            <div
+              key={day.length * Math.random() * 15526}
+              className="border text-center p-2"
+            >
+              {day}
+            </div>
           ))}
         </div>
       </div>

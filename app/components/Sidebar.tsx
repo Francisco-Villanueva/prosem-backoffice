@@ -44,7 +44,7 @@ export function Sidebar({ sideBarStatus }: { sideBarStatus: boolean }) {
       </div>
       <div className=" h-full flex flex-col gap-2 p-4 ">
         {items.map((item, i) => (
-          <SidebarItem item={item} />
+          <SidebarItem item={item} key={i * Math.random() * 15526} />
         ))}
       </div>
       <div className="border text-light-white border-light-dark   m-2 p-2 rounded-md flex justify-between ">

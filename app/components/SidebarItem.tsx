@@ -34,6 +34,7 @@ export default function SidebarItem({ item }: SidebarItemProps) {
         <div className="flex flex-col gap-1  pl-6">
           {item.subitems.map((item) => (
             <p
+              key={Math.random() * 15526}
               className={`font-semibold  cursor-pointer flex items-center gap-2  transition-all duration-150${
                 pathname.includes(item.link)
                   ? "text-white border-r-2"

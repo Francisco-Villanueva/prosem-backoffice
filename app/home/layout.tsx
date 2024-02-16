@@ -20,7 +20,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
   useEffect(() => {
     const companyId_storage = localStorage.getItem("companyId");
     const userLoggedId_storage = localStorage.getItem("userLoggedId");
-
     if (!companyId_storage || !userLoggedId_storage) {
       router.push("/login");
       return;
@@ -35,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         setCompany(res);
       });
     }
-  }, []);
+  }, [1]);
   return (
     <div className="h-[100vh] flex bg-black ">
       <section className={`relative  ${sideBarStatus ? "w-1/6" : "w-1/36 "}`}>

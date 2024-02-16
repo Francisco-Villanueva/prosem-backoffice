@@ -5,7 +5,7 @@ import { teamStore } from "@/store";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function page() {
+export default function Page() {
   const { team } = teamStore();
   const router = useRouter();
   return (
@@ -29,6 +29,7 @@ export default function page() {
             <section className=" flex flex-col h-full justify-center gap-2 ">
               {team.map((member) => (
                 <ButtonEffect
+                  key={Math.random() * 454 + 5}
                   effect="text-effect"
                   preHover={`${member.lastName} ${member.name}`}
                   afterHover={

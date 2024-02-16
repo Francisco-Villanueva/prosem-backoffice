@@ -6,11 +6,11 @@ import UserIcon from "@/app/icons/UserIcon";
 import useInput from "@/hooks/useInput";
 import { UserServices } from "@/services";
 import { companyStore } from "@/store";
-import { IUser, IUserCreate, UserROLES } from "@/types/user.types";
+import { IUserCreate, UserROLES } from "@/types/user.types";
 import { message } from "antd";
 import React, { FormEvent, useState } from "react";
 
-export default function page() {
+export default function Page() {
   const { company } = companyStore();
   const name = useInput({ validatorType: "name" });
   const lastName = useInput({ validatorType: "name" });

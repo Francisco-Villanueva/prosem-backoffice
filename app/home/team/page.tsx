@@ -11,7 +11,7 @@ export default function Page() {
   const { team, setTeam, setSelectedMember, selectedMember } = teamStore();
   useEffect(() => {
     UserServices.getAll().then((res) => setTeam(res));
-  }, [team]);
+  }, []);
   return (
     <div className="h-full  flex flex-col gap-4">
       <h1 className="font-bold text-xl text-light-dark">My Team</h1>

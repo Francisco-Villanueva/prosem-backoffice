@@ -20,21 +20,21 @@ export function Login() {
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    AuthServices.login({ user: userName.value, password: password.value })
-      .then((res: { user: IUser }) => {
-        setUserLogged(res.user);
-        localStorage.setItem("companyId", res.user.companyId);
-        localStorage.setItem("userLoggedId", res.user.id);
-        CompanyServices.getById(res.user.companyId).then((res) => {
-          setCompany(res);
-          message.success("Login successfully");
-          router.push("/home/dashboard");
-        });
-      })
-      .catch(() => message.error("Please check your credentials"))
-      .finally(() => {
-        setLoading(false);
-      });
+    // AuthServices.login({ user: userName.value, password: password.value })
+    //   .then((res: { user: IUser }) => {
+    //     setUserLogged(res.user);
+    //     localStorage.setItem("companyId", res.user.companyId);
+    //     localStorage.setItem("userLoggedId", res.user.id);
+    //     CompanyServices.getById(res.user.companyId).then((res) => {
+    //       setCompany(res);
+    //       message.success("Login successfully");
+    //       router.push("/home/dashboard");
+    //     });
+    //   })
+    //   .catch(() => message.error("Please check your credentials"))
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   };
   return (
     <form

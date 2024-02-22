@@ -8,10 +8,8 @@ import {
 import { axiosInstance } from "./axios.config";
 
 export class AuthServices {
-  static async login(data: ICredentials): Promise<ILoginResponse> {
-    const res = await axiosInstance.post("/auth/login", data);
-
-    return res.data;
+  static async login(credendtials: ICredentials) {
+    return await axiosInstance.post("/auth/login", credendtials);
   }
 
   static async register(data: IRegisterData) {
@@ -29,8 +27,7 @@ export class AuthServices {
 
     return updateData.data;
   }
-  static async me(token: string) {
-    const payload = await axiosInstance.post("/auth/me", { token });
-    return payload;
+  static async refreshToken(token: string) {
+    return await axiosInstance.post("/auth/me", { token });
   }
 }

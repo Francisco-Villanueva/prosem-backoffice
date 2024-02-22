@@ -1,10 +1,36 @@
+"use client";
 import { IUser } from "@/types/user.types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserIcon from "../icons/UserIcon";
+import useDate from "@/hooks/useDate";
+import { IWorkhour } from "@/types";
 interface MemerDetailsProps {
   member: IUser;
 }
 export default function MemberDetails({ member }: MemerDetailsProps) {
+  const { getWeekDay } = useDate();
+  const [workdays, setWorkDays] = useState<
+    { day: number; hours: string[] | [] }[] | []
+  >([]);
+  useEffect(() => {
+    const res = [0, 1, 2, 3, 4, 5, 6].map((dayNumber) => {
+      const workday = member.Workhours.filter((wh) => wh.day === dayNumber);
+
+      if (workday.length) {
+        return {
+          day: dayNumber,
+          hours: workday[0].hours,
+        };
+      } else {
+        return {
+          day: dayNumber,
+          hours: [],
+        };
+      }
+    });
+
+    setWorkDays(res);
+  }, [member]);
   return (
     <article className="flex flex-col p-8   gap-4 h-full">
       <header className="flex justify-between ">
@@ -37,21 +63,21 @@ export default function MemberDetails({ member }: MemerDetailsProps) {
       </header>
 
       <div className="border bg-green text-light-white  rounded-md">
-        <div className="grid grid-cols-7">
-          {[
-            "Monday",
-            "Thuesday",
-            "Wendsday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-          ].map((day) => (
-            <div
-              key={day.length * Math.random() * 15526}
-              className="border text-center p-2"
-            >
-              {day}
+        <div className="  grid grid-cols-7">
+          {workdays.map((day) => (
+            <div className="flex flex-col ">
+              <div className="border text-center p-2 font-bold">
+                {getWeekDay(day.day)}
+              </div>
+              <div className="flex flex-col items-center  flex-grow  ">
+                {day.hours.length === 0 ? (
+                  <span className=" bg-light-dark w-full h-full  flex-grow grid place-items-center">
+                    EMPTY
+                  </span>
+                ) : (
+                  day.hours.map((hour) => <span>{hour}</span>)
+                )}
+              </div>
             </div>
           ))}
         </div>

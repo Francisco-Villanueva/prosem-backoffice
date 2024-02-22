@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { userStore, teamStore, companyStore } from "@/store";
 import { ICompany } from "@/types";
 import Navbar from "../components/Navbar";
+import { useSession } from "next-auth/react";
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -14,27 +15,35 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   const [sideBarStatus, setSideBarStatus] = useState(true);
   const router = useRouter();
-  const { setUserLogged } = userStore();
+  const { setUserLogged, userLogged } = userStore();
   const { setTeam } = teamStore();
   const { setCompany } = companyStore();
+  const session = useSession();
+
   useEffect(() => {
-    const companyId_storage = localStorage.getItem("companyId");
-    const userLoggedId_storage = localStorage.getItem("userLoggedId");
-    if (!companyId_storage || !userLoggedId_storage) {
-      router.push("/login");
-      return;
-    } else {
-      UserServices.getUserById(userLoggedId_storage).then((res) => {
+    const user = session.data?.user;
+    if (user) {
+      localStorage.setItem("userLoggedId", user.id);
+      localStorage.setItem("companyId", user.companyId);
+
+      UserServices.getUserById(user.id).then((res) => {
         setUserLogged(res);
       });
-      UserServices.getAll().then((res) => {
-        setTeam(res);
+    }
+    const userId = localStorage.getItem("userLoggedId");
+    const companyId = localStorage.getItem("companyId");
+    if (userId) {
+      UserServices.getUserById(userId).then((res) => {
+        setUserLogged(res);
       });
-      CompanyServices.getById(companyId_storage).then((res: ICompany) => {
+    }
+    if (companyId) {
+      CompanyServices.getById(companyId).then((res) => {
+        console.log(res);
         setCompany(res);
       });
     }
-  }, [1]);
+  }, []);
   return (
     <div className="h-[100vh] flex bg-black ">
       <section className={`relative  ${sideBarStatus ? "w-1/6" : "w-1/36 "}`}>

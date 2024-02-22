@@ -7,12 +7,11 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("companyId");
-
     config.headers["CompanyId"] = token;
 
-    // if (token) {
-    //   config.headers["Authorization"] = `Bearer ${token}`;
-    // }
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -26,8 +25,6 @@ export class HTTPRequests {
   }
 
   static async post<T>(url: string, payload: T) {
-    console.log("POST : ", { url });
-
     return await axiosInstance.post(url, payload);
   }
 

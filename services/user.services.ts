@@ -1,4 +1,4 @@
-import { IUserCreate } from "@/types/user.types";
+import { IUserCreate, IUserUpdate } from "@/types/user.types";
 import { axiosInstance } from "./axios.config";
 
 export class UserServices {
@@ -15,6 +15,9 @@ export class UserServices {
 
   static async create(userData: IUserCreate) {
     return await axiosInstance.post("/user", userData);
+  }
+  static async update(userId: string, data: IUserUpdate) {
+    return await axiosInstance.patch(`/${userId}`, data);
   }
   static async delete(userId: string) {
     return await axiosInstance.delete(`/${userId}`);

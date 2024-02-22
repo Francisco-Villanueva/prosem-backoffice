@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/app/common/Button";
+import ButtonEffect from "@/app/common/ButtonEffect";
 import Input from "@/app/common/Input";
 import { SpinnerLoading } from "@/app/icons";
 import UserIcon from "@/app/icons/UserIcon";
@@ -61,7 +62,7 @@ export default function Page() {
         <h2 className="font-semibold text-light-dark text-xl">New Member</h2>
       </header>
       <form
-        className="text-sm flex flex-col gap-4 max-h-full p-2 overflow-y-auto   "
+        className=" flex flex-col gap-4 text-sm p-2   "
         onSubmit={handleCreateUser}
       >
         <section className="">
@@ -106,14 +107,12 @@ export default function Page() {
           </div>
         </section>
 
-        <Button
+        <ButtonEffect
+          effect="bg-effect"
           type="submit"
-          className={` w-3 ${
-            loading ? "bg-light-dark" : ""
-          } transition-all duration-150`}
-        >
-          {loading ? <SpinnerLoading /> : "Add Member"}{" "}
-        </Button>
+          preHover="create"
+          afterHover="Add Member"
+        />
       </form>
     </section>
   );

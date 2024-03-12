@@ -28,7 +28,9 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     async signIn({ user, account }) {
       const authenticatedUser = {

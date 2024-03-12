@@ -1,72 +1,41 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
-import { Sidebar } from "@/app/components";
-import { ArrowIcon } from "@/app/icons";
-import { CompanyServices, UserServices } from "@/services";
-import { useRouter } from "next/navigation";
-import { userStore, teamStore, companyStore } from "@/store";
-import { ICompany } from "@/types";
+import React, { ReactNode, useEffect } from "react";
+
+import { SidebarLayout } from "@/app/components";
 import Navbar from "../components/Navbar";
 import { useSession } from "next-auth/react";
+import { companyStore, userStore, teamStore } from "@/store";
+import { CompanyServices, UserServices } from "@/services";
+import { useRouter } from "next/navigation";
 interface RootLayoutProps {
   children: ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [sideBarStatus, setSideBarStatus] = useState(true);
-  const router = useRouter();
-  const { setUserLogged, userLogged } = userStore();
-  const { setTeam } = teamStore();
-  const { setCompany } = companyStore();
   const session = useSession();
-
+  const router = useRouter();
+  const { setUserLogged } = userStore();
+  const { setCompany } = companyStore();
+  const { setTeam } = teamStore();
   useEffect(() => {
-    const user = session.data?.user;
-    if (user) {
-      localStorage.setItem("userLoggedId", user.id);
-      localStorage.setItem("companyId", user.companyId);
+    if (session.data) {
+      localStorage.setItem("userLoggedID", session.data?.user.id);
+      localStorage.setItem("companyId", session.data?.user.companyId);
 
-      UserServices.getUserById(user.id).then((res) => {
-        setUserLogged(res);
-      });
+      setUserLogged(session.data.user);
+      CompanyServices.getById(session.data.user.companyId).then((res) =>
+        setCompany(res)
+      );
+      UserServices.getAll().then((res) => setTeam(res));
     }
-    const userId = localStorage.getItem("userLoggedId");
-    const companyId = localStorage.getItem("companyId");
-    if (userId) {
-      UserServices.getUserById(userId).then((res) => {
-        setUserLogged(res);
-      });
+
+    if (session.status === "unauthenticated") {
+      router.push("/login");
     }
-    if (companyId) {
-      CompanyServices.getById(companyId).then((res) => {
-        console.log(res);
-        setCompany(res);
-      });
-    }
-  }, []);
+  }, [session]);
   return (
     <div className="h-[100vh] flex bg-black ">
-      <section className={`relative  ${sideBarStatus ? "w-1/6" : "w-1/36 "}`}>
-        <div
-          className={`relative h-full  ${
-            sideBarStatus ? "w-full" : "w-10 "
-          } transition-all duration-300`}
-        >
-          <Sidebar sideBarStatus={sideBarStatus} />
-
-          <div
-            className="cursor-pointer"
-            onClick={() => setSideBarStatus(!sideBarStatus)}
-          >
-            <ArrowIcon
-              className={` absolute w-8 top-2 text-light-dark bg-black  rounded-full transition-all duration-500 ${
-                sideBarStatus ? "rotate-270 -right-4 " : "-rotate-180 -right-7 "
-              }`}
-            />
-          </div>
-        </div>
-      </section>
-
+      <SidebarLayout />
       <div className=" flex flex-col gap-2  flex-grow h-max-full  ">
         <Navbar />
         <div className="p-2 w-full h-[90%] bg-white rounded-l-md">

@@ -6,12 +6,14 @@ export const axiosInstance = axios.create({
 });
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("companyId");
-    config.headers["CompanyId"] = token;
+    // if (localStorage) {
+    //   const token = localStorage.getItem("companyId");
+    //   config.headers["CompanyId"] = token;
 
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
+    //   if (token) {
+    //     config.headers["Authorization"] = `Bearer ${token}`;
+    //   }
+    // }
     return config;
   },
   (error) => {
@@ -20,7 +22,7 @@ axiosInstance.interceptors.request.use(
 );
 
 export class HTTPRequests {
-  static async get<T>(url: string): Promise<T> {
+  static async get<T>(url: string) {
     return await axiosInstance.get(url);
   }
 

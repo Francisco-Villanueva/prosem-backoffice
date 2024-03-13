@@ -1,41 +1,7 @@
-"use client";
-import React, { FormEvent, useState } from "react";
 import Image from "next/image";
-import Input from "../common/Input";
-import { SpinnerLoading } from "../icons";
-import Button from "../common/Button";
-import { message } from "antd";
-import useInput from "@/hooks/useInput";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { Login } from "../components";
 
 export default function page() {
-  const userName = useInput({ validatorType: "no required" });
-  const password = useInput({ validatorType: "password" });
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const handleLogin = (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    signIn("credentials", {
-      user: userName.value,
-      password: password.value,
-      redirect: false,
-    })
-      .then((res) => {
-        if (!res?.ok) {
-          console.error(res?.error);
-          return;
-        }
-        message.success("Login success");
-        router.push("/home/dashboard");
-      })
-      .catch((error) => {
-        console.log("error at lohgin", { error });
-      })
-      .finally(() => setLoading(false));
-  };
   return (
     <div className="flex h-[100vh] max-md:flex-col">
       <section className="w-1/2 h-full  max-md:w-full  max-md:h-1/4 flex flex-col items-center justify-center bg-black">
@@ -46,20 +12,9 @@ export default function page() {
           <span>Your living room, our technology</span>
         </div>
       </section>
-      <section className="w-1/2  h-full max-md:w-full  max-md:h-3/4  grid place-items-center bg-black">
-        <div className="bg-green h-2/3 grid place-items-center w-3/4  rounded-md max-md:w-[80%] max-md:h-[90%]">
-          <form
-            className="flex flex-col gap-4 items-center w-5/6"
-            onSubmit={handleLogin}
-          >
-            <Input {...userName} placeholder="Username" />
-            <Input {...password} placeholder="Password" />
-            <Button className="w-[80%]" type="submit" variant="dark">
-              {loading ? <SpinnerLoading /> : "Log in"}
-            </Button>
-            <span className="text-black text-sm"> forgot password</span>
-          </form>
-        </div>
+      <section className="flex flex-col justify-center items-center gap-10 w-1/2  h-full max-md:w-full  max-md:h-3/4     bg-black">
+        <h2 className="font-bold text-3xl text-white">Welcome Back</h2>
+        <Login />
       </section>
     </div>
   );

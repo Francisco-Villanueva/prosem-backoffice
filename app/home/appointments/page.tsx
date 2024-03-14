@@ -5,7 +5,7 @@ import { teamStore } from "@/store";
 import { IUser } from "@/types/user.types";
 import { useState } from "react";
 
-export default function page() {
+export default function Page() {
   const { team } = teamStore();
   const [selectedMember, setSelectedMember] = useState<IUser>(team[1]);
 
@@ -15,6 +15,7 @@ export default function page() {
       <div className="flex justify-around gap-6">
         {team.map((member) => (
           <Button
+            key={member.id}
             className="w-1/3"
             onClick={() => setSelectedMember(member)}
             variant={`${
@@ -26,7 +27,7 @@ export default function page() {
         ))}
       </div>
 
-      <AppointmentTable member={selectedMember} />
+      {selectedMember && <AppointmentTable member={selectedMember} />}
     </div>
   );
 }

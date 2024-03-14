@@ -71,7 +71,7 @@ export const Table = function <T>({
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <Fragment>
+            <Fragment key={row.id}>
               <tr
                 key={row.id}
                 className={` text-black border-b  border-gray-200 text-left  ${
@@ -107,6 +107,7 @@ export const Table = function <T>({
           <span className="flex items-center gap-1">
             {new Array(table.getPageCount()).fill(1).map((e, i) => (
               <Button
+                key={i}
                 className="rounded-full"
                 onClick={() => table.setPageIndex(i)}
                 variant={`${

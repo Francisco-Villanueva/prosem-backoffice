@@ -57,7 +57,7 @@ export function inputValidators(type: InputValidatorType) {
   };
 
   const requiredField = (value: string) => {
-    if (value.length < 1) {
+    if (value.length === 0) {
       return ERROR_MESSAGES.required;
     }
     return null;

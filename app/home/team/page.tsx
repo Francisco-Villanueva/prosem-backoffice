@@ -2,16 +2,12 @@
 import MemberCard from "@/app/components/MemberCard";
 import MemberDetails from "@/app/components/MemberDetails";
 import { SpinnerLoading } from "@/app/icons";
-import { UserServices } from "@/services";
 import { teamStore } from "@/store";
 import Image from "next/image";
-import React, { useEffect } from "react";
 
 export default function Page() {
   const { team, setTeam, setSelectedMember, selectedMember } = teamStore();
-  useEffect(() => {
-    UserServices.getAll().then((res) => setTeam(res));
-  }, []);
+
   return (
     <div className="h-full  flex flex-col gap-4">
       <h1 className="font-bold text-xl text-light-dark">My Team</h1>

@@ -1,6 +1,5 @@
 "use client";
 import ButtonEffect from "@/app/common/ButtonEffect";
-import UserIcon from "@/app/icons/UserIcon";
 import { teamStore } from "@/store";
 import { useRouter } from "next/navigation";
 import React from "react";

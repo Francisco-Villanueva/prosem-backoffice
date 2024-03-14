@@ -1,25 +1,25 @@
 import { IUserCreate, IUserUpdate } from "@/types/user.types";
-import { axiosInstance } from "./axios.config";
+import { HTTPRequests } from "./axios.config";
 
 export class UserServices {
   static async getAll() {
-    const res = await axiosInstance.get("/user/employees");
+    const res = await HTTPRequests.get("/user/employees");
 
     return res.data;
   }
   static async getUserById(userId: string) {
-    const res = await axiosInstance.get(`/user/${userId}`);
+    const res = await HTTPRequests.get(`/user/${userId}`);
 
     return res.data;
   }
 
   static async create(userData: IUserCreate) {
-    return await axiosInstance.post("/user", userData);
+    return await HTTPRequests.post("/user", userData);
   }
   static async update(userId: string, data: IUserUpdate) {
-    return await axiosInstance.patch(`/${userId}`, data);
+    return await HTTPRequests.patch(`/${userId}`, data);
   }
   static async delete(userId: string) {
-    return await axiosInstance.delete(`/${userId}`);
+    return await HTTPRequests.delete(`/${userId}`);
   }
 }

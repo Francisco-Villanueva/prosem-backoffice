@@ -1,5 +1,6 @@
 import { IUser } from "@/types/user.types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface TeamState {
   team: IUser[];
@@ -7,9 +8,17 @@ interface TeamState {
   selectedMember: IUser | null;
   setSelectedMember: (member: IUser) => void;
 }
-export const teamStore = create<TeamState>((set) => ({
-  team: [],
-  selectedMember: null,
-  setTeam: (team) => set(() => ({ team: team })),
-  setSelectedMember: (member) => set(() => ({ selectedMember: member })),
-}));
+
+export const teamStore = create(
+  persist<TeamState>(
+    (set) => ({
+      team: [],
+      selectedMember: null,
+      setTeam: (team) => set(() => ({ team: team })),
+      setSelectedMember: (member) => set(() => ({ selectedMember: member })),
+    }),
+    {
+      name: "teams",
+    }
+  )
+);

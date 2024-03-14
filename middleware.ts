@@ -4,7 +4,6 @@ import { getToken } from "next-auth/jwt";
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  console.log("ESTO SE CORRE EN EL Middleware", { session });
   if (!session) {
     const url = req.nextUrl.clone();
     url.pathname = `/login`;

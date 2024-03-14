@@ -11,3 +11,8 @@ export interface ICompany {
   Workhours: IWorkhour[];
   Users: IUser[];
 }
+export interface INewCompany {
+  name: string;
+  email: string;
+  address: string;
+}

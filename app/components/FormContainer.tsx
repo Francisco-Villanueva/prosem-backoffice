@@ -46,7 +46,7 @@ export function FormContainer({
           done ? "border-green" : "border"
         }`}
       >
-        <span className="text-lg font-semibold flex items-center gap-10 ">
+        <span className="text-lg font-semibold flex items-center gap-10 max-lg:text-sm">
           {title} {done && <CheckIcon />}
         </span>
         <div className="flex">

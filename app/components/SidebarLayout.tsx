@@ -6,10 +6,14 @@ export function SidebarLayout() {
   const [sideBarStatus, setSideBarStatus] = useState(true);
 
   return (
-    <section className={`relative  ${sideBarStatus ? "w-1/6" : "w-1/36 "}`}>
+    <section
+      className={` max-md:absolute h-full    z-50 ${
+        sideBarStatus ? "w-1/6 max-md:w-1/2 " : "w-1 max-md: "
+      }`}
+    >
       <div
         className={`relative h-full  ${
-          sideBarStatus ? "w-full" : "w-10 "
+          sideBarStatus ? "w-full" : "w-1 "
         } transition-all duration-300`}
       >
         <Sidebar sideBarStatus={sideBarStatus} />

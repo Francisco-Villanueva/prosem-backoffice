@@ -9,8 +9,8 @@ export default function Page() {
   const router = useRouter();
   return (
     <section className="flex flex-col h-full gap-2">
-      <div className="flex gap-2 h-[50%] justify-center">
-        <article className="flex-grow h-full border p-2 rounded-md  text-light-dark flex gap-2 ">
+      <div className="flex gap-2 h-[50%] justify-center max-md:flex-col max-md:h-full">
+        <article className="flex-grow h-full border p-2 rounded-md  text-light-dark flex gap-2 max-md:flex-col ">
           <div className="flex flex-col w-full ">
             <h3 className="font-bold ">My Team</h3>
             <section className=" flex flex-col items-center  flex-grow  justify-center ">
@@ -24,7 +24,7 @@ export default function Page() {
               onClick={() => router.push("/home/addMember")}
             />
           </div>
-          <div className=" rounded-md w-2/3 text-light-dark  ">
+          <div className=" rounded-md w-2/3 text-light-dark border ">
             <section className=" flex flex-col h-full justify-center gap-2 ">
               {team.map((member) => (
                 <ButtonEffect
@@ -42,11 +42,13 @@ export default function Page() {
             </section>
           </div>
         </article>
-        <article className="w-[30%] h-full bg-light-dark p-2 ">
+        <article className="w-[30%] max-md:w-full  h-full bg-light-dark p-2  rounded-md">
           <section className="flex flex-col text-sm text-light-dark"></section>
         </article>
       </div>
-      <article className="w-full h-full bg-light-white p-2 rounded-md"></article>
+      <article className="w-full h-full bg-black p-2 rounded-md max-md:h-1/3">
+        aca va algo
+      </article>
     </section>
   );
 }

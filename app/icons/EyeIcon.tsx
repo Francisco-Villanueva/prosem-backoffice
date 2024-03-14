@@ -13,7 +13,7 @@ export function EyeIcon({ className = "", slashed = false }: EyeIconInterface) {
           viewBox="0 0 24 24"
           strokeWidth={1}
           stroke="currentColor"
-          className={`${className || "w-6 h-6"} `}
+          className={`${className || "w-6 h-6 text-black"} `}
         >
           <path
             strokeLinecap="round"

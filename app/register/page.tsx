@@ -5,7 +5,7 @@ import ComapnyRegister from "./ComapnyRegister";
 import AdminResgiter from "./AdminResgiter";
 import ConfirmRegistration from "./ConfirmRegistration";
 
-export default function page() {
+export default function Page() {
   const [step, setStep] = useState(1);
   const [comapanyId, setCompanyId] = useState("");
 

@@ -27,7 +27,7 @@ export default function Page() {
         ))}
       </div>
 
-      <AppointmentTable member={selectedMember} />
+      {selectedMember && <AppointmentTable member={selectedMember} />}
     </div>
   );
 }

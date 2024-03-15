@@ -37,7 +37,10 @@ export function Login() {
       .finally(() => setLoading(false));
   };
   return (
-    <form className="flex flex-col  items-center w-1/2 " onSubmit={handleLogin}>
+    <form
+      className="flex flex-col  items-center w-full  "
+      onSubmit={handleLogin}
+    >
       <div className="w-full">
         <Input {...userName} placeholder="Username" />
         <Input {...password} placeholder="Password" />

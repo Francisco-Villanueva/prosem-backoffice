@@ -5,9 +5,16 @@ import { message } from "antd";
 import { FormContainer } from "../components";
 import Input from "../common/Input";
 import { IUserCreate } from "@/types/user.types";
-
+import { ReactNode } from "react";
+function InternalLayout({ children }: { children: ReactNode }) {
+  return <div className="flex flex-col gap-2  lg:w-1/2">{children}</div>;
+}
 function TitleForm({ title }: { title: string }) {
-  return <h2 className="text-light-white font-semibold text-sm ">{title}</h2>;
+  return (
+    <h2 className="text-light-white font-semibold text-sm  max-lg:text-xs">
+      {title}
+    </h2>
+  );
 }
 
 interface AdminRegisterProps {
@@ -63,11 +70,13 @@ export default function AdminResgiter({
       handleForm={handleAdminSubmit}
     >
       <div className="p-4 flex  gap-6 items-center">
-        <div className=" flex-grow pl-6">
-          <div className="flex flex-col gap-2 ">
-            <h2 className="text-lg font-semibold">Personal Information</h2>
-            <section className="flex   justify-center gap-4 ">
-              <div className="flex-col   w-1/3">
+        <div className=" flex max-lg:flex-col flex-grow gap-6">
+          <InternalLayout>
+            <h2 className="text-lg font-semibold border-b  border-light-dark">
+              Personal Information
+            </h2>
+            <section className="flex max-md:flex-col w-5/6 mx-auto  gap-6 max-md:w-full max-md:gap-1">
+              <div className="flex-col  w-1/2 max-md:w-full max-md:gap-1  ">
                 <div>
                   <TitleForm title="First Name" />
                   <Input placeholder="First name" {...name} isRegister={true} />
@@ -81,7 +90,7 @@ export default function AdminResgiter({
                   />
                 </div>
               </div>
-              <div className="flex-col w-1/3">
+              <div className="flex-col w-1/2  max-md:w-full max-md:gap-1">
                 <div>
                   <TitleForm title="Phone Number" />
                   <Input
@@ -100,10 +109,12 @@ export default function AdminResgiter({
                 </div>
               </div>
             </section>
-          </div>
-          <div className="flex flex-col gap-2 ">
-            <h2 className="text-lg font-semibold">Access Information</h2>
-            <section className="flex flex-col  w-1/3 m-auto">
+          </InternalLayout>
+          <InternalLayout>
+            <h2 className="text-lg font-semibold border-b border-light-dark ">
+              Access Information
+            </h2>
+            <section className="flex flex-col   w-5/6 m-auto max-md:w-full max-md:gap-1">
               <div>
                 <TitleForm title="User Name" />
                 <Input placeholder="userName" {...userName} isRegister={true} />
@@ -121,7 +132,7 @@ export default function AdminResgiter({
                 />
               </div>
             </section>
-          </div>
+          </InternalLayout>
         </div>
       </div>
     </FormContainer>

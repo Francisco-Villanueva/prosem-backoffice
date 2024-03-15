@@ -42,11 +42,11 @@ export default function ComapnyRegister({
       disabled={false}
       handleForm={handleCompanySubmit}
     >
-      <div className="p-4 flex  gap-6 items-center">
-        <div className="h-[250px] aspect-square bg-white rounded-md">
+      <div className="p-4 flex max-md:flex-col  gap-6 items-center">
+        <div className="h-[250px] max-md:h-[100px] aspect-square bg-white rounded-md">
           <UserIcon className="text-light-dark" />
         </div>
-        <div className=" flex-grow text-black">
+        <div className=" flex-grow text-black max-md:w-full">
           <span>
             <TitleForm title="Comapny Name" />
             <Input placeholder="Name Of Company" {...name} />

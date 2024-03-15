@@ -64,22 +64,22 @@ export default function Page() {
         onSubmit={handleCreateUser}
       >
         <section className="">
-          <h2 className="text-light-dark font-light text-md ">
+          <h2 className="text-light-dark font-normal text-md ">
             Personal Information
           </h2>
-          <div className="flex  justify-between p-4">
-            <div className="bg-light-dark w-1/6  rounded-md grid place-items-center relative">
-              <UserIcon className="w-hull h-full text-light-white" />
+          <div className="flex  max-md:flex-col max-md:gap-4 justify-between p-4">
+            <div className="bg-light-dark h-[150px] aspect-square rounded-md grid place-items-center relative">
+              <UserIcon className="aspect-square h-full  text-light-white" />
               <button className="rounded-full bg-white text-black   grid place-items-center w-6 h-6 absolute bottom-0 right-0 m-8">
                 +
               </button>
             </div>
-            <div className="flex flex-col flex-grow   justify-center p-8">
-              <div className=" flex gap-4">
+            <div className="flex flex-col flex-grow   justify-center p-8 max-md:p-0 ">
+              <div className=" flex max-lg:flex-col max-lg:gap-0 gap-4 ">
                 <Input {...name} placeholder="Name" />
                 <Input {...lastName} placeholder="Last name" />
               </div>
-              <div className=" flex gap-4 ">
+              <div className=" flex max-lg:flex-col max-lg:gap-0 gap-4 ">
                 <Input {...email} placeholder="email " />
                 <Input {...phone} placeholder="phone number " type="number" />
               </div>
@@ -95,7 +95,7 @@ export default function Page() {
         </section>
         <hr />
         <section className="">
-          <h2 className="text-light-dark font-light text-md ">
+          <h2 className="text-light-dark font-normal text-md ">
             Access Information
           </h2>
           <div className="p-4">

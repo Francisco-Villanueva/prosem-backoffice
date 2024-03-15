@@ -9,4 +9,8 @@ export class CompanyServices {
     const res = await axiosInstance.get(`/company/${companyId}`);
     return res.data;
   }
+  static async getByName(companyName: string) {
+    const res = await axiosInstance.get(`/company/name/${companyName}`);
+    return res.data;
+  }
 }

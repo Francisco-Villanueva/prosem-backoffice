@@ -3,7 +3,7 @@ import Image from "next/image";
 import ButtonEffect from "./ButtonEffect";
 import { useRouter } from "next/navigation";
 
-type EmptyCardType = "team" | "appointmens" | "status";
+type EmptyCardType = "team" | "appointmens" | "status" | "search";
 type TConfig = {
   image: string;
   paragraph: string;
@@ -38,6 +38,10 @@ const Config: Record<EmptyCardType, TConfig> = {
     // buttonText: "Load Team Members",
     linkText: "Shop Now",
   },
+  search: {
+    image: "/svg/girl.svg",
+    paragraph: "You don't have any result for your search.",
+  },
 };
 
 interface EmptyCardProps {
@@ -53,7 +57,7 @@ export function EmptyCard({ type }: EmptyCardProps) {
         <div className=" h-32 aspect-square relative">
           <Image src={image} alt={paragraph} fill />
         </div>
-        <p className="text-black text-center text-sm">{paragraph}</p>
+        <p className=" text-center text-sm">{paragraph}</p>
       </div>
       <div className="flex gap-2  ">
         {buttonText && (

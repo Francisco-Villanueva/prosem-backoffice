@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useState } from "react";
-import { ArrowIcon, CheckIcon } from "../icons";
+import { ArrowIcon, CheckIcon, SpinnerLoading } from "../icons";
 import Button from "../common/Button";
 import { message } from "antd";
 
@@ -20,14 +20,20 @@ export function FormContainer({
 }: FormContainerProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleFormData = () => {
+    setLoading(true);
     handleForm()
       .then(() => {
+        setLoading(false);
         setIsOpen(false);
         setDone(true);
       })
-      .catch(() => message.error("Por favor, revise la información cargada"));
+      .catch(() => {
+        setLoading(false);
+        message.error("Por favor, revise la información cargada");
+      });
   };
   return (
     <div
@@ -68,8 +74,11 @@ export function FormContainer({
         <div className="flex flex-col items-end p-4 bg-[rgba(0,0,0,.25)]">
           <div className="w-full">{children}</div>
           <div className="w-1/4 ">
-            <Button onClick={handleFormData} disabled={disableSubmit}>
-              Submit
+            <Button
+              onClick={handleFormData}
+              disabled={disableSubmit || loading}
+            >
+              {!loading ? "Submit" : <SpinnerLoading />}
             </Button>
           </div>
         </div>

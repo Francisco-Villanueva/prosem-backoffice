@@ -6,7 +6,7 @@ import { CompanyServices } from "@/services";
 import { ICompany } from "@/types";
 import useModal from "@/hooks/useModal";
 import Button from "../common/Button";
-import { ArrowIcon } from "../icons";
+import { ArrowIcon, SpinnerLoading } from "../icons";
 import { useRef } from "react";
 import { EmptyCard } from "../common/EmptyCard";
 
@@ -52,13 +52,17 @@ function ModelView({ company }: { company: ICompany }) {
 export default function Searcher() {
   const name = useInput({ validatorType: "no required" });
   const [companies, setCompanies] = useState<ICompany[]>();
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (searchTerm: string) => {
     try {
       const res = await CompanyServices.getByName(searchTerm);
+
       setCompanies(res);
     } catch (error) {
       console.error("Error al buscar empresas:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +71,10 @@ export default function Searcher() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
     name.onChange(e);
+    setLoading(true);
     if (searchTerm === "") {
+      setLoading(false);
+
       setCompanies([]); // Establecer el estado de companies a un array vacío si el término de búsqueda está vacío
     } else {
       debouncedSearch(searchTerm);
@@ -85,6 +92,11 @@ export default function Searcher() {
           companies.map((company) => (
             <ModelView key={company.id} company={company} />
           ))
+        ) : loading ? (
+          <div className="flex flex-col items-center w-full justify-center gap-4 font-extralight text-md">
+            <SpinnerLoading className="text-white w-10" />
+            <span>Searching</span>
+          </div>
         ) : (
           <EmptyCard type="search" />
         )}

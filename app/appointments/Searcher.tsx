@@ -22,8 +22,9 @@ function debounce(func: Function, delay: number) {
 
 function ModelView({ company }: { company: ICompany }) {
   const { modalStatus, toggleModal } = useModal();
+  const barbers = company.Users.filter((user) => user.role === "employee");
   return (
-    <div className=" w-1/3  ">
+    <div className=" w-1/3 max-md:w-full ">
       <div className="flex border justify-between items-center rounded-md p-2 font-semibold">
         <h2>{company.name}</h2>
         <div>
@@ -34,14 +35,19 @@ function ModelView({ company }: { company: ICompany }) {
       </div>
       {modalStatus && (
         <div className="border border-light-dark rounded-b-md p-2 bg-light-white text-black">
-          <span>Lista de peluqueros</span>
+          <span className="font-semibold">Barbers list</span>
           <div className="flex flex-col gap-2 p-4">
-            {company.Users.filter((user) => user.role === "employee").map(
-              (user) => (
-                <span key={user.id}>
+            {barbers.length ? (
+              barbers.map((user) => (
+                <span
+                  key={user.id}
+                  className="border-l-4 border-light-dark pl-1"
+                >
                   {user.name} {user.lastName}
                 </span>
-              )
+              ))
+            ) : (
+              <span className="font-semibold text-light-dark">No barbers</span>
             )}
           </div>
         </div>
@@ -83,17 +89,17 @@ export default function Searcher() {
 
   return (
     <div className="w-full h-5/6 ">
-      <form className="w-1/6">
+      <form className="w-1/6 max-lg:w-full">
         <Input {...name} placeholder="Salon .." onChange={handleInputChange} />
       </form>
 
-      <div className="flex gap-2 w-full h-full border-light-dark border rounded-xl p-4">
+      <div className="flex max-md:flex-col  gap-2 w-full h-full border-light-dark border rounded-xl p-4">
         {companies?.length ? (
           companies.map((company) => (
             <ModelView key={company.id} company={company} />
           ))
         ) : loading ? (
-          <div className="flex flex-col items-center w-full justify-center gap-4 font-extralight text-md">
+          <div className="flex flex-col items-center w-full h-full justify-center gap-4 font-extralight text-md">
             <SpinnerLoading className="text-white w-10" />
             <span>Searching</span>
           </div>

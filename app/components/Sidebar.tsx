@@ -35,8 +35,8 @@ export function Sidebar({ sideBarStatus }: { sideBarStatus: boolean }) {
   };
   return (
     <div
-      className={`bg-black text-white h-full  shadow-md w-full transition-all duration-150 flex flex-col ${
-        sideBarStatus ? "" : "opacity-0"
+      className={`bg-black text-white h-full     flex flex-col fixed top-0 lefy-0  w-[15%] shadow-gray-400   z-20 transform transition-transform duration-300   ${
+        sideBarStatus ? "translate-x-[0%]" : "translate-x-[-100%]"
       }`}
     >
       <div className="relative  w-[76%] h-[10vh] m-auto p-2  ">

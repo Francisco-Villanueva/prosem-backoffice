@@ -41,7 +41,7 @@ export default function SidebarItem({ item }: SidebarItemProps) {
                   : " text-light-dark"
               }`}
               onClick={() => {
-                router.push(item.link);
+                router.push("/home/" + item.link);
               }}
             >
               {item.icon ? item.icon : <StarsIcon />}

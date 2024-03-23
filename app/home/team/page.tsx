@@ -25,11 +25,11 @@ export default function Page() {
       ) : (
         <div className=" grid place-items-center border">
           <span className="text-light-dark font-bold ">
-            {team.length === 0 ? (
+            {!team ? (
               <div className="text-light-dark font-normal">No members</div>
             ) : (
               <div className="flex gap-2">
-                <SpinnerLoading className="" /> Loadng...
+                <SpinnerLoading className="" /> Loading...
               </div>
             )}
           </span>
@@ -40,18 +40,18 @@ export default function Page() {
           <MemberDetails member={selectedMember} />
         ) : (
           <div className="h-full w-full  flex flex-col justify-center items-center">
-            <span className="text-light-dark">
-              Select one member to see details
-            </span>
             <div className="relative w-[150px]  h-[150px] ">
               <Image
                 src={"/svg/teamMember.svg"}
                 objectFit="contain"
                 fill
                 alt="member"
-                className="opacity-15"
+                className="opacity-50"
               />
             </div>
+            <span className="text-light-dark">
+              Select one member to see details
+            </span>
           </div>
         )}
       </section>

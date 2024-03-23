@@ -26,8 +26,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       CompanyServices.getById(session.data.user.companyId).then((res) =>
         setCompany(res)
       );
-      UserServices.getAll().then((res) => setTeam(res));
     }
+
+    UserServices.getAll().then((res) => setTeam(res));
 
     if (session.status === "unauthenticated") {
       router.push("/login");

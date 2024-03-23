@@ -9,16 +9,9 @@ interface TeamState {
   setSelectedMember: (member: IUser) => void;
 }
 
-export const teamStore = create(
-  persist<TeamState>(
-    (set) => ({
-      team: [],
-      selectedMember: null,
-      setTeam: (team) => set(() => ({ team: team })),
-      setSelectedMember: (member) => set(() => ({ selectedMember: member })),
-    }),
-    {
-      name: "teams",
-    }
-  )
-);
+export const teamStore = create<TeamState>((set) => ({
+  team: [],
+  selectedMember: null,
+  setTeam: (team) => set(() => ({ team: team })),
+  setSelectedMember: (member) => set(() => ({ selectedMember: member })),
+}));

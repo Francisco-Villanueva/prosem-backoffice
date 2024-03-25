@@ -1,56 +1,68 @@
 "use client";
-import MemberCard from "@/app/components/MemberCard";
-import MemberDetails from "@/app/components/MemberDetails";
-import { SpinnerLoading } from "@/app/icons";
+import { GridIcon, SpinnerLoading, SquaresIcon } from "@/app/icons";
 import { teamStore } from "@/store";
-import Image from "next/image";
+import GridView from "./GridView";
+import { useState } from "react";
+import TableView from "./TableView";
+import Button from "@/app/common/Button";
+import RoleCard from "@/app/common/RoleCard";
 
 export default function Page() {
-  const { team, setTeam, setSelectedMember, selectedMember } = teamStore();
+  const { team } = teamStore();
 
+  const [view, setView] = useState<"grid" | "table">("table");
+
+  const toggleView = () => {
+    setView(view === "grid" ? "table" : "grid");
+  };
+
+  const Icon = view === "grid" ? GridIcon : SquaresIcon;
+
+  const adminCount = team.filter((member) => member.role === "admin").length;
+  const employeeCount = team.filter(
+    (member) => member.role === "employee"
+  ).length;
   return (
-    <div className="h-full  flex flex-col gap-4">
-      <h1 className="font-bold text-xl text-light-dark">My Team</h1>
-      {team.length ? (
-        <section className="grid grid-cols-4 gap-2 ">
-          {team.map((member) => (
-            <MemberCard
-              key={Math.random() * 2565463}
-              selected={member.id === selectedMember?.id}
-              member={member}
-              handleSelect={() => setSelectedMember(member)}
-            />
-          ))}
-        </section>
-      ) : (
-        <div className=" grid place-items-center border">
-          <span className="text-light-dark font-bold ">
-            {!team ? (
-              <div className="text-light-dark font-normal">No members</div>
-            ) : (
-              <div className="flex gap-2">
-                <SpinnerLoading className="" /> Loading...
-              </div>
-            )}
-          </span>
+
+    <div className="h-full  flex flex-col gap-4 p-2">
+      <header className="flex justify-between">
+        <h2 className="font-bold text-xl text-black">My Team</h2>
+        <div>
+          <Button onClick={toggleView} variant="dark">
+            <Icon size={5} />
+          </Button>
+
         </div>
-      )}
-      <section className="flex-grow border bg-light-white rounded-md">
-        {selectedMember ? (
-          <MemberDetails member={selectedMember} />
+      </header>
+      <section className="grid grid-cols-2 w-1/6">
+        <span className="flex flex-col items-center border rounded-lg bg-light-white ">
+          <p className="p-1 font-bold">{adminCount}</p>
+          <RoleCard role="admin" />
+        </span>
+        <span className="flex flex-col items-center border rounded-lg bg-light-white ">
+          <p className="p-1 font-bold">{employeeCount}</p>
+          <RoleCard role="employee" />
+        </span>
+      </section>
+      <section className="">
+        {team.length ? (
+          view === "grid" ? (
+            <GridView />
+          ) : (
+            <TableView />
+          )
         ) : (
-          <div className="h-full w-full  flex flex-col justify-center items-center">
-            <div className="relative w-[150px]  h-[150px] ">
-              <Image
-                src={"/svg/teamMember.svg"}
-                objectFit="contain"
-                fill
-                alt="member"
-                className="opacity-50"
-              />
-            </div>
-            <span className="text-light-dark">
-              Select one member to see details
+
+          <div className=" grid place-items-center border">
+            <span className="text-light-dark font-bold ">
+              {team.length === 0 ? (
+                <div className="text-light-dark font-normal">No members</div>
+              ) : (
+                <div className="flex gap-2">
+                  <SpinnerLoading className="" /> Loadng...
+                </div>
+              )}
+
             </span>
           </div>
         )}

@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { companyStore, userStore, teamStore } from "@/store";
 import { CompanyServices, UserServices } from "@/services";
 import { useRouter } from "next/navigation";
+import Aside from "../components/Aside";
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
         </div>
       </div>
+      <Aside />
     </div>
   );
 }

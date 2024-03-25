@@ -1,14 +1,26 @@
 "use client";
 import ButtonEffect from "@/app/common/ButtonEffect";
 import Input from "@/app/common/Input";
+import RoleCard from "@/app/common/RoleCard";
 import UserIcon from "@/app/icons/UserIcon";
 import useInput from "@/hooks/useInput";
 import { UserServices } from "@/services";
 import { companyStore } from "@/store";
 import { IUserCreate, UserROLES } from "@/types/user.types";
 import { message } from "antd";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, ReactNode, useState } from "react";
 
+function Option({ children, value }: { children: ReactNode; value: string }) {
+  return (
+    <option
+      value={value}
+      className="bg-green"
+      style={{ borderRadius: "0 !important" }}
+    >
+      {children}
+    </option>
+  );
+}
 export default function Page() {
   const { company } = companyStore();
   const name = useInput({ validatorType: "name" });
@@ -57,14 +69,14 @@ export default function Page() {
   return (
     <section className="flex flex-col  h-full ">
       <header className="border-b p-2">
-        <h2 className="font-semibold text-light-dark text-xl">New Member</h2>
+        <h2 className="font-semibold text-black text-xl">New Member</h2>
       </header>
       <form
         className=" flex flex-col gap-4 text-sm p-2   "
         onSubmit={handleCreateUser}
       >
         <section className="">
-          <h2 className="text-light-dark font-normal text-md ">
+          <h2 className="text-black font-normal text-md ">
             Personal Information
           </h2>
           <div className="flex  max-md:flex-col max-md:gap-4 justify-between p-4">
@@ -86,16 +98,23 @@ export default function Page() {
             </div>
             <div className="">
               <p className="text-light-dark font-semibold ">Role:</p>
-              <select name="role" id="">
-                <option value="employee">employee</option>
-                <option value="admin">admin</option>
+              <select
+                name="role"
+                className="p-1 outline-none border rounded-none"
+              >
+                <Option value="employee">
+                  <RoleCard role="employee" />
+                </Option>
+                <Option value="admin">
+                  <RoleCard role="admin" />
+                </Option>
               </select>
             </div>
           </div>
         </section>
         <hr />
         <section className="">
-          <h2 className="text-light-dark font-normal text-md ">
+          <h2 className="text-black font-normal text-md ">
             Access Information
           </h2>
           <div className="p-4">

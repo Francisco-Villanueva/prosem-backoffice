@@ -28,8 +28,10 @@ export default function MemberCard({
   };
   return (
     <div
+
       className={`border p-2 rounded-md relative transition-all duration-300   select-none ${
         selected ? "bg-black text-white " : ""
+
       } ${className}`}
     >
       <MemberStatus status="active" className="absolute top-0 right-0 m-1" />

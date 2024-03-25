@@ -23,6 +23,7 @@ export default function Page() {
     (member) => member.role === "employee"
   ).length;
   return (
+
     <div className="h-full  flex flex-col gap-4 p-2">
       <header className="flex justify-between">
         <h2 className="font-bold text-xl text-black">My Team</h2>
@@ -30,6 +31,7 @@ export default function Page() {
           <Button onClick={toggleView} variant="dark">
             <Icon size={5} />
           </Button>
+
         </div>
       </header>
       <section className="grid grid-cols-2 w-1/6">
@@ -50,6 +52,7 @@ export default function Page() {
             <TableView />
           )
         ) : (
+
           <div className=" grid place-items-center border">
             <span className="text-light-dark font-bold ">
               {team.length === 0 ? (
@@ -59,6 +62,7 @@ export default function Page() {
                   <SpinnerLoading className="" /> Loadng...
                 </div>
               )}
+
             </span>
           </div>
         )}

@@ -7,24 +7,25 @@ import { useState } from "react";
 
 export default function Page() {
   const { team } = teamStore();
-  const [selectedMember, setSelectedMember] = useState<IUser>(team[1]);
+  const [selectedMember, setSelectedMember] = useState<IUser>(team[0]);
 
   return (
     <div className="flex flex-col gap-4 h-full">
       <h2>List of appointments</h2>
       <div className="flex justify-around gap-6">
-        {team.map((member) => (
-          <Button
-            key={member.id}
-            className="w-1/3"
-            onClick={() => setSelectedMember(member)}
-            variant={`${
-              selectedMember.id === member.id ? "dark" : "secondary"
-            }`}
-          >
-            {member.name}
-          </Button>
-        ))}
+        {selectedMember &&
+          team.map((member) => (
+            <Button
+              key={member.id}
+              className="w-1/3"
+              onClick={() => setSelectedMember(member)}
+              variant={`${
+                selectedMember.id === member.id ? "dark" : "secondary"
+              }`}
+            >
+              {member.name}
+            </Button>
+          ))}
       </div>
 
       {selectedMember && <AppointmentTable member={selectedMember} />}

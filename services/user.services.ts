@@ -3,7 +3,7 @@ import { HTTPRequests } from "./axios.config";
 
 export class UserServices {
   static async getAll() {
-    const res = await HTTPRequests.get("/user/employees");
+    const res = await HTTPRequests.get("/user");
 
     return res.data;
   }

@@ -47,18 +47,18 @@ export const Table = function <T>({
 
   return (
     <>
-      <table className="w-full  relative border rounded-md font-semibold ">
+      <table className="w-full  relative border rounded-xl font-semibold ">
         <thead className="">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr
               key={headerGroup.id}
-              className="border-b-2  border-gray-200 bg-light-grey "
+              className=" bg-light-dark text-white rounded-xl "
             >
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
                   style={{ width: `${header.getSize()}px` }}
-                  className={` py-3 px-4 border-r  text-start  text-black font-semibold   `}
+                  className={` py-3 px-4  text-start   font-normal    `}
                 >
                   {flexRender(
                     header.column.columnDef.header,
@@ -74,13 +74,13 @@ export const Table = function <T>({
             <Fragment key={row.id}>
               <tr
                 key={row.id}
-                className={` text-black border-b  border-gray-200 text-left  ${
+                className={` text-black border-b font-normal text-sm  border-gray-200 text-left  ${
                   row.getIsExpanded() &&
                   "border-l-2 border-l-black bg-hoverBlue"
                 }`}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className=" p-2  px-4 ">
+                  <td key={cell.id} className="px-2 ">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

@@ -15,8 +15,8 @@ export default function MemberCard({
 }: MemberCardProps) {
   return (
     <div
-      className={`border p-2 rounded-md relative transition-all duration-300  cursor-pointer select-none ${
-        selected ? "bg-black text-green " : ""
+      className={`border p-2 rounded-md relative transition-all duration-150  cursor-pointer select-none ${
+        selected ? "bg-black text-green " : "bg-white"
       } ${className}`}
       onClick={handleSelect}
     >
